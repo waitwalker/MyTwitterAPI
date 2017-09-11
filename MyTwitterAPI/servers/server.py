@@ -6,29 +6,29 @@ from tornado.web import RequestHandler,url
 from tornado.options import define,options
 from urls import url
 from models import users
+from models import create_tables
 
 
 define('port',type=int,default=8000,help='server port')
+define('tables',type=bool,default=False,group='application',help='create tables')
 
-class IndexHandler(RequestHandler):
+class Application(tornado.web.Application):
+    def __init__(self,*args,**kwargs):
+        super(Application,self).__init__(*args,**kwargs)
 
-    def get(self, *args, **kwargs):
-
-
-        self.write('get 请求')
-
-    def post(self, *args, **kwargs):
-
-        self.write('post 请求')
-
-
-if __name__ == '__main__':
+def main():
     tornado.options.parse_command_line()
+    if options.tables == False:
+        create_tables.run()
 
-    app = tornado.web.Application(
-        url.handlers
+    app = Application(
+        url.handlers,
+
     )
-
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
+
+
+if __name__ == '__main__':
+    main()

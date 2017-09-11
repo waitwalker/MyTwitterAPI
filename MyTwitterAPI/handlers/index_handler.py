@@ -5,10 +5,7 @@ class IndexHandler(base_handler.BaseHandler):
 
     def get(self, *args, **kwargs):
 
-        user = users.User()
-        user.user_name = 'aixuepai'
-        user.password = 'a11111'
-        self.db.add(user)
-        self.db.commit()
+        user = users.User.by_id(users.User,1)
+        print(user.user_name,user.password)
 
         self.write('index get 请求')
