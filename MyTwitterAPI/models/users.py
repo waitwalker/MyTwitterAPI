@@ -11,6 +11,7 @@ Base = declarative_base(engine)
 class User(Base):
     __tablename__ = 'my_twitter_user'
     id = Column(Integer,primary_key=True,autoincrement=True)
+    phone_num = Column(Integer,nullable=True)
     user_name = Column(String(60),nullable=False)
     password = Column(String(100),nullable=False)
     create_time = Column(DateTime,default=datetime.now())
@@ -28,4 +29,8 @@ class User(Base):
     @classmethod
     def by_name(self,cls,name):
         return session.query(cls).filter_by(user_name=name).first()
+
+    @classmethod
+    def by_phone_num(self,cls,phoneNum):
+        return session.query(cls).filter_by(phone_num=phoneNum).first()
 
