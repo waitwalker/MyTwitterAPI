@@ -13,6 +13,7 @@ class User(Base):
     id = Column(Integer,primary_key=True,autoincrement=True)
     phone_num = Column(Integer,nullable=True)
     user_name = Column(String(60),nullable=False)
+    email = Column(String(64),nullable=True)
     password = Column(String(100),nullable=False)
     create_time = Column(DateTime,default=datetime.now())
     last_login = Column(DateTime)
