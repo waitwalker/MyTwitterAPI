@@ -5,27 +5,50 @@ import json
 class RegisterHandler(base_handler.BaseHandler):
 
     def post(self, *args, **kwargs):
-
-        # phone_num = self.get_argument('phone_num')
-        # user_name = self.get_argument('user_name')
-        # password = self.get_argument('password')
-        user = users.User.by_id(users.User,1235)
+        user_name = self.get_argument('user_name')
+        password = self.get_argument('password')
+        email = self.get_argument('email')
+        phone = self.get_argument('phone')
+        user = users.User.by_email(users.User,email)
         if user:
-            print('手机号已存在')
-            self.write(json.dumps('号码已存在,请换另一个试试'))
-        else:
-            print('手机号不存在,把新增用户添加到数据库')
-            # new_user = users.User()
-            # new_user.phone_num = phone_num
-            # new_user.user_name = user_name
-            # new_user.password = password
+            print('用户已存在')
+
+            new_user = users.User()
+            new_user.user_name = user_name
+            new_user.password = password
+            new_user.email = email
             # self.db.add(new_user)
             # self.db.commit()
-            name = self.get_argument('name')
+            data = {
+                "user_name": user_name,
+                "email": email
+            }
 
             registerSuccess = {'responseObject':
-                                   {"data":
-                                        {"name":name},
+                                   {"data": data,
+                                    "result": "1",
+                                    "msg": '注册成功'
+                                    }
+                               }
+
+            registerSuccess = json.dumps(registerSuccess)
+
+            self.write(json.dumps(registerSuccess))
+        else:
+            print('用户不存在,把新增用户添加到数据库')
+            new_user = users.User()
+            new_user.user_name = user_name
+            new_user.password = password
+            new_user.email = email
+            # self.db.add(new_user)
+            # self.db.commit()
+            data = {
+                "user_name":user_name,
+                "email":email
+            }
+
+            registerSuccess = {'responseObject':
+                                   {"data":data,
                                     "result":"1",
                                     "msg":'注册成功'
                                     }
@@ -34,3 +57,15 @@ class RegisterHandler(base_handler.BaseHandler):
             registerSuccess = json.dumps(registerSuccess)
 
             self.write(registerSuccess)
+
+
+    def getResponseObejct(self,result,msg,*args):
+
+        responseObject = {
+            'responseObject':{
+                'result':result,
+                'msg':msg,
+                'data': args,
+            }
+        }
+        return responseObject
