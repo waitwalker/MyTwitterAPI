@@ -4,9 +4,7 @@ from sqlalchemy import create_engine,Column,Integer,String,Boolean,DateTime,Fore
 from models import engine
 from sqlalchemy.orm import relationship
 from models import session
-
-#创建基类
-Base = declarative_base(engine)
+from models import Base
 
 class User(Base):
     __tablename__ = 'my_twitter_user'

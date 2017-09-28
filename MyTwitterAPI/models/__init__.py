@@ -14,6 +14,9 @@ create_engine_base_string = 'mysql+pymysql://%s:%s@%s/%s'%(UserName,Password,Hos
 # 创建引擎
 engine = create_engine(create_engine_base_string,encoding='utf-8',echo=True)
 
+#创建基类
+Base = declarative_base(engine)
+
 #生成一个session类
 Session_Class = sessionmaker(bind=engine)
 session = Session_Class()
