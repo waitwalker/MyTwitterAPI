@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2017/9/29 上午11:09
+# @Author  : waitWalker
+# @Email   : waitwalker@163.com
+# @File    : test.py
+# @Software: PyCharm
+
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine,Column,Integer,String,Boolean,DateTime,ForeignKey
