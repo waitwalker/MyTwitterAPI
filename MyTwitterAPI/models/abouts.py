@@ -15,6 +15,7 @@ from models import Base
 
 
 class AboutTwitter(Base):
+    print('开始创建关于表')
     __tablename__ = 'about_twitter'
     id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String(32),nullable=False)
