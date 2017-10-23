@@ -9,9 +9,45 @@ from handlers import base_handler
 from models import users
 import json
 
+
 class HomeHandler(base_handler.BaseHandler):
 
     def get(self, *args, **kwargs):
-        self.write("主页")
 
+        homeList = users.HomeTwitterList.all(users.HomeTwitterList)
+        print(homeList)
+        if len(homeList) == 0:
+            responseObject = {
+                "result": "200",
+                "msg": "请求成功",
+                "data": ""
+            }
+            self.write("主页目前没有数据")
+        else:
+            data = []
+            for home in homeList:
+                dic = {
+                    "retwitter": home.retwitter,
+                    "retwitterAccount": home.retwitterAccount,
+                    "avatarImage": home.avatarImage,
+                    "account": home.account,
+                    "nickName": home.nickName,
+                    "time": home.time,
+                    "content": home.content,
+                    "contentImages": home.contentImages,
+                    "contentVideo": home.contentVideo,
+                    "commentCount": home.commentCount,
+                    "retwitterCount": home.retwitterCount,
+                    "likeCount": home.likeCount,
+                    "privateMessageCount": home.privateMessageCount,
+                }
 
+                data.append(dic)
+            print(data)
+
+            responseObject = {
+                "result":"200",
+                "msg":"请求成功",
+                "data":data
+            }
+            self.write(json.dumps(responseObject))

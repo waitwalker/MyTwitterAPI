@@ -66,7 +66,6 @@ class AboutHandler(base_handler.BaseHandler):
             for item in data:
                 newAbout = abouts.AboutTwitter()
 
-
                 newAbout.title = item["title"]
 
                 newAbout.urlString = item["urlString"]
