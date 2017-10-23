@@ -19,15 +19,15 @@ class HomeHandler(base_handler.BaseHandler):
         if len(homeList) == 0:
             responseObject = {
                 "result": "200",
-                "msg": "请求成功",
+                "msg": "请求成功,主页目前没有数据",
                 "data": ""
             }
-            self.write("主页目前没有数据")
+            self.write(json.dumps(responseObject))
         else:
             data = []
             for home in homeList:
                 dic = {
-                    "retwitter": home.retwitter,
+                    "retwitterType": home.retwitterType,
                     "retwitterAccount": home.retwitterAccount,
                     "avatarImage": home.avatarImage,
                     "account": home.account,
