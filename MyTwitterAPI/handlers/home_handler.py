@@ -42,7 +42,7 @@ class HomeHandler(base_handler.BaseHandler):
                     "privateMessageCount": home.privateMessageCount,
                 }
 
-                data.append(dic)
+                data.insert(0,dic)
             print(data)
 
             responseObject = {
